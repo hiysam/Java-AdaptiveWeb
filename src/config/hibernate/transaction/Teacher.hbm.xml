@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.adaptive.module.transaction.teacher.model">
+	<class name="Teacher" table="tbl_teacher">
+		<id name="teacherId" column="TEACHER_ID" type="long">
+			<!-- <generator class="native">
+				<param name="sequence">course_seq </param>
+			 </generator>-->
+			 <generator class="increment"></generator>
+		</id>
+		
+		<property name="teacherNumber" column="TEACHER_NO" type="string"/>
+		<property name="teacherName" column="TEACHER_NAME" type="string"/>
+		
+		<many-to-one name="gender" column="TEACHER_GENDER" insert="true" update="true"
+			class="com.adaptive.module.configuration.appSetting.model.AppSetting" fetch="join">
+		</many-to-one>
+		
+		<property name="teacherBirthPlace" column="TEACHER_BIRTH_PLACE" type="string"/>
+		<property name="teacherBirthDate" column="TEACHER_BIRTH_DATE" type="date"/>
+		<property name="teacherAddress" column="TEACHER_ADDRESS" type="string"/>
+		
+		<property name="activeFlag" column="ACTIVE_FLAG" type="string"/>
+		<property name="createBy" column="CREATE_BY" type="string"/>
+		<property name="createOn" column="CREATE_ON" type="timestamp"/>
+		<property name="updateBy" column="UPDATE_BY" type="string"/>
+		<property name="updateOn" column="UPDATE_ON" type="timestamp"/>
+		
+		<bag name="teacherClass" inverse="true" cascade="save-update, delete-orphan"
+			order-by="TEACHER_ID asc">
+			<key column="TEACHER_ID"/>
+			<one-to-many
+				class="com.adaptive.module.transaction.teacherClass.model.TeacherClass" />
+		</bag>
+		
+	</class>
+</hibernate-mapping>

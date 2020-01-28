@@ -1,0 +1,49 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" 
+				xmlns:h="http://java.sun.com/jsf/html" 
+				xmlns:f="http://java.sun.com/jsf/core"
+   				xmlns:ui="http://java.sun.com/jsf/facelets"
+   				xmlns:p="http://primefaces.org/ui"
+   				xmlns:pt="http://xmlns.jc.org/jsf/passthrough">
+   				
+	<div class="card">
+		<h3>	
+			<h:outputText value="#{semesterInputBean.modeTitle}" />
+		</h3>
+		<h:panelGrid columns="3" border="0" callpading="7">
+			<h:panelGroup>
+				<h:outputText value="#{msg.formSemesterType}" />
+				<span style="color: red"> *</span>
+			</h:panelGroup>
+			<p:inputText id="semesterTypeAdd" size="15"
+				rendered="#{semesterInputBean.MODE_TYPE eq 'ADD'}"
+				value="#{semesterInputBean.semesterVO.semesterType}" maxlenght="5" />
+				
+			<p:inputText id="semesterType"
+				value="#{semesterInputBean.semesterVO.semesterType}"
+				rendered="#{semesterInputBean.MODE_TYPE eq 'EDIT'}" readonly="true" />
+			<p:message for="semesterTypeAdd" />
+			
+			<h:panelGroup>
+				<h:outputText value="#{msg.formSemesterYear}" />
+				<span style="color:red"> *</span>
+			</h:panelGroup>
+			
+			<p:inputText id="periode" size="15"
+				value="#{semesterInputBean.semesterVO.periode}" maxlenght="30" />
+			<p:message for="periode"/>
+			
+			<h:panelGroup>
+				<h:outputText value="#{msg.formSemesterDesc}" />
+			</h:panelGroup>
+			
+			<p:inputTextarea id="semesterDesc" row="3" cols="20"
+				value="#{semesterInputBean.semesterVO.semesterDesc}" />
+			<p:message for="semesterDesc"/>
+		</h:panelGrid>
+		
+		<p:commandButton actionListener="#{semesterBean.modeSearch}" value="#{msg.common_btnBack}"
+			update="formSemester"/>
+		<p:commandButton actionListener="#{semesterBean.modeSave}" value="#{msg.common_btnSave}"
+			update="formSemester"/>
+	</div>
+</ui:composition>

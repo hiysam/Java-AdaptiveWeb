@@ -1,0 +1,220 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" 
+				xmlns:h="http://java.sun.com/jsf/html" 
+				xmlns:f="http://java.sun.com/jsf/core"
+   				xmlns:ui="http://java.sun.com/jsf/facelets"
+   				xmlns:p="http://primefaces.org/ui"
+   				xmlns:pt="http://xmlns.jc.org/jsf/passthrough">
+
+	<div class="card">
+		<p:panelGrid styleClass="ui-noborder">
+		<h3>#{msg.formTeacherTitle}</h3>
+			<p:row>
+				<p:column>
+					<p:inputText id="searchAll" size="40" value="#{teacherSearch.searchAll}" />
+					<p:spacer width="5" />
+					
+					<p:commandButton icon="fa fa-refresh" id="buttonRefresh"
+						actionListener="#{teacherSearch.clear}" update="formTeacher"/>
+					<p:spacer width="5"/>
+					
+					<p:commandButton icon="fa fa-search" id="buttonSearch"
+						actionListener="#{teacherSearch.search}" update=":formTeacher:tableTeacher"/>
+					<p:spacer width="5"/>
+					
+					<p:commandButton icon="ui-icon-copy" oncomplete="PF('teacherDialogSearch').show();"
+						update=":formTeacher:teacherDialogSearch"/>
+					<p:spacer width="5"/>
+				</p:column>
+			</p:row>
+			
+			<p:row>
+				<p:column>
+					<p:commandButton id="buttonAdd" value="#{msg.common_btnAdd}" update=":formTeacher"
+						actionListener="#{teacherBean.modeAdd}" />
+				</p:column>
+			</p:row>
+		</p:panelGrid>
+		
+		<br/>
+		<p:dataTable id="tableTeacher" pagnition="true" value="#{teacherSearch.teacherListLazyTable}"
+			var="data" rows="#{teacherSearch.paging}" lazy="true" dynamic="true" emptymessage="Data Kosong"
+			paginatorTemplate="{FirstPageLink} {PreviousLink} {PageLinks} {NextPageLink}"
+			rowIndexVar="index">
+			
+			<p:column style="width:20px" headerText="#{msg.common_indexNo}">
+				<center>
+					<h:outputText value="#{index+1}"/>
+				</center>
+			</p:column>
+			
+			<p:column style="width:100px" sortBy="#{data[1]}">
+					<center>
+						<f:facet name="header">
+							<h:outputText value="#{msg.formTeacherNo}"/>
+						</f:facet>
+						<h:outputText value="#{data.teacherNumber}"/>
+					</center>
+			</p:column>
+				
+			<p:column style="width:200px" sortBy="#{data[2]}">
+				<center>
+					<f:facet name="header">
+						<h:outputText value="#{msg.formTeacherName}"/>
+					</f:facet>
+					<h:outputText value="#{data.teacherName}"/>
+				</center>
+			</p:column>
+				
+			<p:column sortBy="#{data[3]}">
+				<f:facet name="header">
+					<h:outputText value="#{msg.formTeacherGender}"/>
+				</f:facet>
+				<h:outputText value="#{data.genderName}"/>
+			</p:column>
+				
+			<p:column sortBy="#{data[4]}">
+				<f:facet name="header">
+					<h:outputText value="#{msg.formTeacherAddress}"/>
+				</f:facet>
+				<h:outputText value="#{data.teacherAddress}"/>
+			</p:column>
+				
+			<p:column style="width:150px" headerText="#{msg.common_textAction}">
+				<center>
+					<p:commandButton id="detail" icon="fa fa-eye" update=":formTeacher:classDialogDetail"
+						oncomplete="PF('classDialogDetail').show();"
+						actionListener="#{teacherSearch.detailTeacher(data)}" />
+					<p:spacer width="5" />
+					<h:outputText value="|"/>
+					<p:spacer width="5" />
+					<p:commandButton id="EDIT" icon="fa fa-wrench" 
+						update=":formTeacher" actionListener="#{teacherBean.modeEdit(data)}" />
+					<p:spacer width="5" />
+					<h:outputText value="|"/>
+					<p:spacer width="5" />
+					<p:commandButton id="trash" icon="fa fa-trash"
+						actionListener="#{teacherSearch.delete(data)}"
+						update=":formTeacher:tableTeacher :formTeacher:growlMessage">
+						<p:confirm header="#{msg.common_textConfirm}"
+								message="#{msg.common_textConfirmDelete}" icon="ui-icon-alert"/>
+					</p:commandButton>
+				</center>
+			</p:column>
+		</p:dataTable>
+	</div>
+	
+	<p:dialog widgetVar="teacherDialogSearch" id="teacherDialogSearch" modal="true" position="center"
+		width="850" height="250" header="Search Daftar Pengajar">
+		
+		<div class="card">
+			<p:panelGrid styleClass="ui-noborder" callpadding="10">
+				<p:row>
+					<p:column style="width:100px">
+						<h:outputText value="#{msg.formTeacherNo}"/>
+					</p:column>
+					<p:column style="width:300px">
+						<p:inputText id="noSearch" size="15" value="#{teacherSearch.noSearch}"/>
+					</p:column>
+					
+					<p:column style="width:100px">
+						<h:outputText value="#{msg.formTeacherName}"/>
+					</p:column>
+					<p:column>
+						<p:inputText id="nameSearch" size="15" value="#{teacherSearch.nameSearch}"/>
+					</p:column>
+				</p:row>
+				
+				<p:row>
+					<p:column>
+						<h:outputText value="#{msg.formGenderG}"/>
+					</p:column>
+					
+					<p:column>
+						<p:selectOneRadio id="genderSearch" unselectable="true"
+							value="#{teacherSearch.genderSearch}">
+							<f:selectItems value="#{teacherBean.genderSelectItem}" />
+						</p:selectOneRadio>
+					</p:column>
+					
+					<p:column>
+						<h:outputText value="#{msg.formTeacherAddress}"/>
+					</p:column>
+					
+					<p:column>
+						<p:inputTextarea id="addressSearch" rows="5"
+							value="#{teacherSearch.addressSearch}"/>
+					</p:column>
+				</p:row>
+			</p:panelGrid>
+			
+			<br></br>
+			
+			<p:row>
+				<center>
+					<p:commandButton value="Search" update=":formTeacher:tableTeacher"
+						actionListener="#{teacherSearch.teacherSearchDialog}"
+						oncomplete="PF('teacherDialogSearch').hide();" />
+					<p:spacer width="5" />
+					<p:commandButton id="clear" value="#{msg.common_btnClear}"
+						update=":formTeacher" oncomplete="PF('teacherDialogSearch').show();"
+						actionListener="#{teacherSearch.clearSearchDialog}" />
+				</center>
+			</p:row>
+			
+		</div>
+	</p:dialog>
+	
+	<p:dialog widgetVar="classDialogDetail" id="classDialogDetail" modal="true" position="center"
+		width="800" height="300" header="#{msg.formPengajar} - #{teacherSearch.headerDialog}">
+		
+		<div class="card">
+			<p:dataTable id="tableTeacherClass" paginator="true" var="data2"
+				value="#{teacherSearch.tcrClassListLazyTable}" rows="#{teacherSearch.paging}"
+				lazy="true" dynamic="true" emptyMessage="Belum Memiliki Class"
+				paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink}"
+				worIndexVar="index">
+				
+				<p:column style="width:20px" headerText="#{msg.common_indexNo}">
+					<center>
+						<h:outputText value="#{index+1}" />
+					</center>
+				</p:column>
+				
+				<p:column style="width:100px">
+					<f:facet name="header">
+						<h:outputText value="Kode Mata Pelajaran" />
+					</f:facet>
+					<h:outputText value="#{data2.courseCode}" />
+				</p:column>
+				
+				<p:column style="width:150px">
+					<f:facet name="header">
+						<h:outputText value="#{msg.formTeacherDayOfWeek}"/>
+					</f:facet>
+					<center>
+						<h:outputText value="#{data2.dayOfWeek}" />
+					</center>
+				</p:column>
+				
+				<p:column style="width:150px">
+					<f:facet name="header">
+						<h:outputText value="#{msg.formTeacherTimeStart}" />
+					</f:facet>
+					<center>
+						<h:outputText value="#{data2.timeStart}" />
+					</center>
+				</p:column>
+				
+				<p:column sort="#{data2[4]}">
+					<f:facet name="header">
+						<h:outputText value="#{msg.formTeacherTimeEnd}" />
+					</f:facet>
+					<center>
+						<h:outputText value="#{data2.timeEnd}" />
+					</center>
+				</p:column>
+				
+			</p:dataTable>
+		</div>
+	</p:dialog>
+</ui:composition>

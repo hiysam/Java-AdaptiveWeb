@@ -1,0 +1,67 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" 
+				xmlns:h="http://java.sun.com/jsf/html" 
+				xmlns:f="http://java.sun.com/jsf/core"
+   				xmlns:ui="http://java.sun.com/jsf/facelets"
+   				xmlns:p="http://primefaces.org/ui"
+   				template="../../templates/template.xhtml">
+   				
+<ui:define name="title">
+	<h:outputText value = "#{msg.webtitle}" /> - 
+	<h:outputText value = "Segitiga" />
+</ui:define>
+
+<ui:define name="viewname">Master / Basic / Segitiga</ui:define>
+
+<ui:define name="content">
+	<h:form id="formSegitiga">
+		<div class="card">
+			<p:panelGrid styleClass="ui-noborder">
+				<p:row>
+					<p:column>
+						<h:outputText value="Alas : "/>
+					</p:column>
+					<p:column>
+						<p:spinner id="alas" size="7" maxLenght="5" value="#{segitigaInputBean.strAlas}">
+						<p:keyFilter regEx="/[\d\-]/" />
+						</p:spinner>
+					</p:column>
+					<p:column>
+						<p:message for="alas"/>
+					</p:column>
+				</p:row>
+				
+				<p:row>
+					<p:column>
+						<h:outputText value="Tinggi : "/>
+					</p:column>
+					<p:column>
+						<p:spinner id="tinggi" size="7" maxLenght="5" value="#{segitigaInputBean.strTinggi}">
+						<p:keyFilter regEx="/[\d\-]/" />
+						</p:spinner>
+					</p:column>
+					<p:column>
+						<p:message for="tinggi"/>
+					</p:column>
+				</p:row>
+				
+				<p:row>
+					<p:column>
+						<h:outputText value="Hasil : "/>
+					</p:column>
+					<p:column>
+						<p:inputText id="hasil" size="7" readonly="true" value="#{segitigaInputBean.hasil}"/>
+					</p:column>
+				</p:row>
+				
+				<p:row>
+					<p:column colspan="3">
+						<p:commandButton style="margin-left:110px" id="buttonHitung" value="hitung"
+						actionListener="#{segitigaInputBean.calculate}" update=":formSegitiga" />
+					</p:column>
+				</p:row>
+			</p:panelGrid>
+		</div>
+	</h:form>
+</ui:define>
+
+</ui:composition>

@@ -1,0 +1,90 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" 
+				xmlns:h="http://java.sun.com/jsf/html" 
+				xmlns:f="http://java.sun.com/jsf/core"
+   				xmlns:ui="http://java.sun.com/jsf/facelets"
+   				xmlns:p="http://primefaces.org/ui"
+   				template="../templates/template.xhtml">
+
+    <ui:define name="title">HC System - Dashboard</ui:define>
+
+    <ui:define name="viewname">Dashboard</ui:define>
+
+    <ui:define name="content">
+        <div class="dashboard">
+            <div class="ui-g-12 ui-md-12 ui-lg-6">
+                <p:panel styleClass="notification">
+                    <f:facet name="header">
+                        <div class="panel-heading-title"><center>NOTIFICATION</center></div>
+                    </f:facet> 
+                    <ul>
+                        <li class="message-from">
+                             <div class="message">
+                                <span>
+									<p:outputLabel value="Permohonan FUDIP [13035936-MAHARDIKA PUTRA SIDHARTA] dalam proses pengajuan, klik " />
+									<h:outputLink value="#"><p:outputLabel value="link ini" /></h:outputLink><p:outputLabel value=" untuk persetujuan" />
+								</span>
+                            </div>
+                        </li>
+                        
+                        <li class="message-from">
+                                <div class="message">
+                                    <span>
+	                                    <p:outputLabel value="Terdapat Pengajuan FUDIP, klik " />
+										<h:outputLink value="#"><p:outputLabel value="link ini" /></h:outputLink>
+										<p:outputLabel value=" untuk evaluasi &#38; persetujuan" />
+									</span>
+								</div>
+                        </li>
+
+                        <li class="message-from">
+                            <div class="message">
+                                <span>
+                                	<p:outputLabel value="Permohonan Upload Employee Data [0000060] dalam proses pengajuan, klik " />
+									<h:outputLink value="#"><p:outputLabel value="link ini" /></h:outputLink>
+									<p:outputLabel value=" untuk persetujuan" />
+								</span>
+                            </div>
+                        </li>
+                    </ul>
+                </p:panel>
+                
+                <p:panel styleClass="schedule">
+                    <f:facet name="header">
+                        <div class="panel-heading-title"><center>EVENTS</center></div>
+                    </f:facet> 
+                     <p:schedule id="schedule" value="#{scheduleView.eventModel}" />
+                </p:panel>
+            </div>
+            
+            <div class="ui-g-12 ui-md-12 ui-lg-6">
+                <p:panel>
+                    <f:facet name="header">
+                        <div class="panel-heading-title"><center>REPORT TO</center></div>
+                    </f:facet> 
+                    <center>
+                    <!-- <p:graphicImage name="avatar4.png" library="california-layout" styleClass="profile-report-to" /> -->	
+                    <span class="profile-report-to-name">Liu Rudi Chandra</span>
+                    <span class="profile-report-to-role">Manager</span>
+                    </center>   
+                </p:panel>
+                <br />
+                <p:panel>
+                    <f:facet name="header">
+                        <div class="panel-heading-title"><center>MAIL BOX</center></div>
+                    </f:facet> 
+                    <div class="stats">
+                        <div class="stats-icon">
+                            <p:graphicImage name="images/icon-message.png" library="california-layout" styleClass="message-icon" />
+                        </div>
+                        <div class="stats-numbers">150</div>
+                        <div class="stats-title">Unread Messages</div>
+                        <div class="stats-subtitle">
+                        	You stared <span>5</span> messages today
+                        </div>
+                    </div>
+                </p:panel>
+            </div>
+        </div>
+    </ui:define>
+				
+</ui:composition>

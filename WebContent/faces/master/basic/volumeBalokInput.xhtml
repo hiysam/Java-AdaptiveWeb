@@ -1,0 +1,85 @@
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:pt="http://xmlns.jcp.org/passthrough">
+
+	<p:outputPanel id="outputPanelAddDtl" rendered="#{volumeBalokInputBean.MODE_TYPE eq 'ADD'}">
+		<p:panelGrid styleClass="ui-noborder">
+			<h:outputText value="#{volumeBalokInputBean.title}" />
+			<br /> <br />
+			<p:row>
+				<p:column>
+					<h:outputText value="Panjang :" />
+				</p:column>
+				<p:column>
+					<p:inputText id="panjang" size="7" maxLenght="5" value="#{volumeBalokInputBean.strBil1}">
+						<p:keyFilter regEx="/[\d\-]/" />
+					</p:inputText>
+				</p:column>
+				<p:column>
+					<p:message for="panjang" />
+				</p:column>
+			</p:row>
+			
+			<p:row>
+				<p:column>
+					<h:outputText value="Lebar :" />
+				</p:column>
+				<p:column>
+					<p:inputText id="lebar" size="7" value="#{volumeBalokInputBean.strBil2}" />
+				</p:column>
+				<p:column>
+					<p:message for="lebar" />
+				</p:column>
+			</p:row>
+			
+			<p:row>
+				<p:column>
+					<h:outputText value="Tinggi :" />
+				</p:column>
+				<p:column>
+					<p:inputText id="tinggi" size="7" value="#{volumeBalokInputBean.strBil3}" />
+				</p:column>
+				<p:column>
+					<p:message for="tinggi" />
+				</p:column>
+			</p:row>
+			
+			<p:row>
+				<p:column colspan="3">
+					<p:commandButton icon="fa fa-angle-right" style="margin-left:110px"
+						id="buttonHitung" value="#{msg.btnHitung}"
+						actionListener="#{volumeBalokInputBean.calculate}"
+						update="formVolumeBalok"/>
+				</p:column>
+			</p:row>
+			
+		</p:panelGrid>
+	</p:outputPanel>
+
+	<p:outputPanel id="outputPanelResult" rendered="#{volumeBalokInputBean.MODE_TYPE eq 'VIEW'}">
+		<p:panelGrid styleClass="ui-noborder">
+			<p:row>
+				<h:outputText value="#{volumeBalokInputBean.title}" />
+				<br /> <br />
+				<p:column>
+					<h:outputText value="#{msg.lblHasil}" />
+				</p:column>
+				<p:column>
+					<p:inputText id="hasil" size="7" readonly="true" value="#{volumeBalokInputBean.hasil}" />
+				</p:column>
+			</p:row>
+			
+			<p:row>
+				<p:column colspan="3">
+					<p:commandButton icon="fa fa-backword" value="Kembali" style="margin-left:110px"
+						actionListener="#{volumeBalokInputBean.modelInput}" update="formVolumeBalok" />
+				</p:column>
+			</p:row>
+		</p:panelGrid>
+	</p:outputPanel>
+
+</ui:composition>

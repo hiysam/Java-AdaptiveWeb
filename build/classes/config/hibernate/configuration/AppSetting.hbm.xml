@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.adaptive.module.configuration.appSetting.model">
+	<class name="AppSetting" table="App_Setting">
+		<id name="settingCode" column="SETTING_CODE" type="string"></id>
+		
+		<many-to-one name="appSettingType" column="TYPE_CODE" insert="true" update="true"
+			class="com.adaptive.module.configuration.appSetting.model.AppSettingType" fetch="join">
+		</many-to-one>
+		
+		<property name="settingName" column="SETTING_NAME" type="string"/>
+		
+		<!-- <property name="activeFlag" column="ACTIVE_FLAG" type="string"/>
+		<property name="createBy" column="CREATE_BY" type="string"/>
+		<property name="createOn" column="CREATE_ON" type="timestamp"/>
+		<property name="updateBy" column="UPDATE_BY" type="string"/>
+		<property name="updateOn" column="UPDATE_ON" type="timestamp"/>
+		
+		<bag name="tcrClassList" inverse="true" cascade="save-update, delete-orphan"
+			order-by="TEACHER_ID asc">
+			<key column="TEACHER_ID"/>
+			<one-to-many
+				class="crudhbm.model.TeacherClass" />
+		</bag> -->
+		
+	</class>
+</hibernate-mapping>

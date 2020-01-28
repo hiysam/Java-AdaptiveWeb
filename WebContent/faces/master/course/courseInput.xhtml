@@ -1,0 +1,49 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" 
+				xmlns:h="http://java.sun.com/jsf/html" 
+				xmlns:f="http://java.sun.com/jsf/core"
+   				xmlns:ui="http://java.sun.com/jsf/facelets"
+   				xmlns:p="http://primefaces.org/ui"
+   				xmlns:pt="http://xmlns.jc.org/jsf/passthrough">
+   				
+	<div class="card">
+		<h3>	
+			<h:outputText value="#{courseInputBean.modeTitle}" />
+		</h3>
+		<h:panelGrid columns="3" border="0" callpading="7">
+			<h:panelGroup>
+				<h:outputText value="#{msg.formCourseCode}" />
+				<span style="color: red"> *</span>
+			</h:panelGroup>
+			<p:inputText id="courseCodeAdd" size="15"
+				rendered="#{courseInputBean.MODE_TYPE eq 'ADD'}"
+				value="#{courseInputBean.courseVO.courseCode}" maxlenght="5" />
+				
+			<p:inputText id="courseCodeEdit"
+				value="#{courseInputBean.courseVO.courseCode}"
+				rendered="#{courseInputBean.MODE_TYPE eq 'EDIT'}" readonly="true" />
+			<p:message for="courseCodeAdd" />
+			
+			<h:panelGroup>
+				<h:outputText value="#{msg.formCourseName}" />
+				<span style="color:red"> *</span>
+			</h:panelGroup>
+			
+			<p:inputText id="courseName" size="15"
+				value="#{courseInputBean.courseVO.courseName}" maxlenght="30" />
+			<p:message for="courseName"/>
+			
+			<h:panelGroup>
+				<h:outputText value="#{msg.formCourseDesc}" />
+			</h:panelGroup>
+			
+			<p:inputTextarea id="courseDesc" row="3" cols="20"
+				value="#{courseInputBean.courseVO.courseDesc}" />
+			<p:message for="courseDesc"/>
+		</h:panelGrid>
+		
+		<p:commandButton actionListener="#{courseBean.modeSearch}" value="#{msg.common_btnBack}"
+			update="formCourse"/>
+		<p:commandButton actionListener="#{courseBean.modeSave}" value="#{msg.common_btnSave}"
+			update="formCourse"/>
+	</div>
+</ui:composition>

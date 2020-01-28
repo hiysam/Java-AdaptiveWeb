@@ -1,0 +1,103 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" 
+				xmlns:h="http://java.sun.com/jsf/html" 
+				xmlns:f="http://java.sun.com/jsf/core"
+   				xmlns:ui="http://java.sun.com/jsf/facelets"
+   				xmlns:p="http://primefaces.org/ui"
+   				xmlns:pt="http://xmlns.jc.org/jsf/passthrough">
+
+	<div class="card">
+		<h3>#{msg.formSemesterTitle}</h3>
+		<p:panelGrid styleClass="ui-noborder">
+			<p:row>
+				<p:column>
+					<p:inputText id="searchAll" size="40" value="#{semesterSearch.searchAll}" />
+					<p:spacer width="5" />
+					
+					<p:commandButton icon="fa fa-refresh" id="buttonRefresh"
+						actionListener="#{semesterSearch.clear}" update="formSemester"/>
+					<p:spacer width="5"/>
+					
+					<p:commandButton icon="fa fa-search" id="buttonSearch"
+						actionListener="#{semesterSearch.search}" update=":formSemester:tablesemester"/>
+					<p:spacer width="5"/>
+					
+					
+				</p:column>
+			</p:row>
+			
+			<p:row>
+				<p:column>
+					<p:commandButton id="add" value="#{msg.common_btnAdd}" update="formSemester"
+						actionListener="#{semesterBean.modeAdd}"/>
+					<p:commandButton id="buttonDelete" value="#{msg.common_btnDelete}"
+			   			actionListener="#{semesterSearch.multipleDelete}" 
+			   			disabled="#{semesterSearch.selectedSemesters.size() == 0}"
+			   			update=":formSemester:tablesemester :formSemester:growlMessage :formSemester:buttonDelete">
+			   			<p:confirm header="#{msg.common_textConfirm}" message="#{msg.common_textConfirmMultipleDelete}" icon="ui-icon-alert" />
+		   			</p:commandButton>
+				</p:column>
+			</p:row>
+		</p:panelGrid>
+		
+			<p:dataTable id="tablesemester" paginator="true" value="#{semesterSearch.semesterVOListLazyTable}" var="data"
+   				rows="#{semesterSearch.paging}" dynamic="true" lazy="true" rowIndexVar="index"
+   				selection="#{semesterSearch.selectedSemesters}"
+   				paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLink} {NextPageLink} {LastPageLink}"
+				rowsPerPageTemplate="5,10">
+				
+				<p:ajax event="toggleSelect" partialSubmit="true" update=":formSemester:buttonDelete" />
+		   		<p:ajax event="rowSelectCheckbox" Listener="#{semesterSearch.onRowSelect}" update=":formSemester:buttonDelete" />
+		   		<p:ajax event="rowUnselectCheckbox" Listener="#{semesterSearch.onRowUnselect}" update=":formSemester:buttonDelete" />
+		   		<p:ajax event="rowSelect" Listener="#{semesterSearch.onRowSelect}" update=":formSemester:buttonDelete" />
+		   		<p:ajax event="rowUnselect" Listener="#{semesterSearch.onRowUnselect}" update=":formSemester:buttonDelete" />
+		   		
+		   		<p:column selectionMode="multiple" style="width:16px;text-align:center" />
+				<p:column style="width:20px" headerText="#{msg.common_indexNo}">
+					<center>
+						<h:outputText value="#{index+1}"/>
+					</center>
+				</p:column>
+				
+				<p:column style="width:100px" sortBy="#{data[1]}">
+					<center>
+						<f:facet name="header">
+							<h:outputText value="#{msg.formSemesterType}"/>
+						</f:facet>
+						<h:outputText value="#{data.semesterType}"/>
+					</center>
+				</p:column>
+				
+				<p:column style="width:200px" sortBy="#{data[2]}">
+					<center>
+						<f:facet name="header">
+							<h:outputText value="#{msg.formSemesterYear}"/>
+						</f:facet>
+						<h:outputText value="#{data.periode}"/>
+					</center>
+				</p:column>
+				
+				<p:column sortBy="#{data[3]}">
+					<f:facet name="header">
+						<h:outputText value="#{msg.formSemesterDesc}"/>
+					</f:facet>
+					<h:outputText value="#{data.semesterDesc}"/>
+				</p:column>
+				
+				<p:column style="width:100px" headerText="#{msg.common_textAction}">
+					<center>
+						<p:commandButton id="edit" icon="fa fa-wrench" update=":formSemester"
+							actionListener="#{semesterBean.modeEdit(data)}" />
+						<p:spacer width="5" />
+						<h:outputText value="|"/>
+						<p:spacer width="5" />
+						<p:commandButton id="trash" icon="fa fa-trash"
+							actionListener="#{semesterSearch.delete(data)}"
+							update=":formSemester:tablesemester :formSemester:growlMessage">
+							<p:confirm header="#{msg.common_textConfirm}"
+								message="#{msg.common_textConfirmDelete}" icon="ui-icon-alert"/>
+						</p:commandButton>
+					</center>
+				</p:column>
+			</p:dataTable>
+	</div>
+</ui:composition>

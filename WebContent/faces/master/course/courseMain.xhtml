@@ -1,0 +1,32 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" 
+				xmlns:h="http://java.sun.com/jsf/html" 
+				xmlns:f="http://java.sun.com/jsf/core"
+   				xmlns:ui="http://java.sun.com/jsf/facelets"
+   				xmlns:p="http://primefaces.org/ui"
+   				template="../../templates/template.xhtml">
+   				
+<ui:define name="title">
+	<h:outputText value = "#{msg.webtitle}" /> - 
+	<h:outputText value = "#{msg.formCourseTitle}" />
+</ui:define>
+
+	<ui:define name="viewname">Master / Basic / Course</ui:define>
+
+	<ui:define name="content">
+		<h:form id="formCourse">
+			<p:growl id="growlMessage" life="4000" showDetail="true" showSummary="false" globalOnly="true" />
+			<p:outputPanel id="outputPanelInput" rendered="#{courseBean.MODE_TYPE eq 'ADD' or courseBean.MODE_TYPE eq 'EDIT'}" >
+				<ui:include src="courseInput.xhtml" />
+			</p:outputPanel>
+			
+			<p:outputPanel id="outputPanelSearch" rendered="#{courseBean.MODE_TYPE eq 'SEARCH'}" >
+				<ui:include src="courseSearch.xhtml" />
+			</p:outputPanel>
+		</h:form>
+		<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+			<p:commandButton value="#{msg.common_textYes}" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+			<p:commandButton value="#{msg.common_textNo}" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+		</p:confirmDialog>
+	</ui:define>
+
+</ui:composition>

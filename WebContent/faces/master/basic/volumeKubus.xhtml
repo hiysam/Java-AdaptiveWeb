@@ -1,0 +1,53 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" 
+				xmlns:h="http://java.sun.com/jsf/html" 
+				xmlns:f="http://java.sun.com/jsf/core"
+   				xmlns:ui="http://java.sun.com/jsf/facelets"
+   				xmlns:p="http://primefaces.org/ui"
+   				template="../../templates/template.xhtml">
+   				
+<ui:define name="title">
+	<h:outputText value = "#{msg.webtitle}" /> - 
+	<h:outputText value = "#{msg.formVolumeKubusTitle}" />
+</ui:define>
+
+<ui:define name="viewname">Master / Basic / Volume Kubus</ui:define>
+
+<ui:define name="content">
+	<h:form id="formKubus">
+		<div class="card">
+			<p:panelGrid styleClass="ui-noborder">
+				<p:row>
+					<p:column>
+						<h:outputText value="Sisi : "/>
+					</p:column>
+					<p:column>
+						<p:spinner id="sisi" size="7" maxLenght="5" value="#{volumeKubusInputBean.strSisi}">
+						<p:keyFilter regEx="/[\d\-]/" />
+						</p:spinner>
+					</p:column>
+					<p:column>
+						<p:message for="sisi"/>
+					</p:column>
+				</p:row>
+				
+				<p:row>
+					<p:column>
+						<h:outputText value="Hasil : "/>
+					</p:column>
+					<p:column>
+						<p:inputText id="hasil" size="7" readonly="true" value="#{volumeKubusInputBean.hasil}"/>
+					</p:column>
+				</p:row>
+				
+				<p:row>
+					<p:column colspan="3">
+						<p:commandButton style="margin-left:110px" id="buttonHitung" value="hitung"
+						actionListener="#{volumeKubusInputBean.calculate}" update=":formKubus" />
+					</p:column>
+				</p:row>
+			</p:panelGrid>
+		</div>
+	</h:form>
+</ui:define>
+
+</ui:composition>

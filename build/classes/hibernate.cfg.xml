@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+	<session-factory>
+		<property name="hibernate.dialect">org.hibernate.dialect.OracleDialect</property>
+		<property name="hibernate.connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
+		<property name="hibernate.connection.provider_class">org.hibernate.connection.C3P0ConnectionProvider</property>
+		
+		<!-- Config url and user connection to db -->
+		<property name="hibernate.connection.url">jdbc:oracle:thin:@localhost:1521:xe</property>
+		<property name="hibernate.connection.username">ADAPTIVE2</property>
+		<property name="hibernate.connection.password">ADAPTIVE</property>
+		
+		<property name="hibernate.c3p0.acquire_increment">1</property>
+		<property name="hibernate.c3p0.idle_test_period">0</property>
+		<property name="hibernate.c3p0.min.size">10</property>
+		<property name="hibernate.c3p0.max.size">800</property>
+		<property name="hibernate.c3p0.max.statements">50</property>
+		<property name="hibernate.c3p0.timeout">500</property>
+		<property name="hibernate.c3p0.idle_test_period">5000</property>
+		<property name="hibernate.c3p0.acquireRetryAttempts">1</property>
+		<property name="hibernate.c3p0.acquireRetryDelay">250</property>
+		<property name="hibernate.show_sql">true</property>
+		<property name="hibernate.use.sql_comments">false</property>
+		<property name="hibernate.transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</property>
+		<property name="hibernate.current_session_context_class">thread</property>
+		<property name="hibernate.jdbc.batch_size">40</property>
+		<property name="hibernate.cache.use_second_level_cache">false</property>
+		<property name="hibernate.cache.use.query_cache">false</property>
+		<property name="hibernate.max_fetch_depth">4</property>
+		
+		<!-- List of XML Mapping File -->
+		<mapping resource="config/hibernate/master/Course.hbm.xml"/>
+		<mapping resource="config/hibernate/master/Semester.hbm.xml"/>
+		<mapping resource="config/hibernate/transaction/Teacher.hbm.xml"/>
+		<mapping resource="config/hibernate/transaction/TeacherClass.hbm.xml"/> 
+		<mapping resource="config/hibernate/configuration/AppSetting.hbm.xml"/>
+		<mapping resource="config/hibernate/configuration/AppSettingType.hbm.xml"/>
+		<!-- 
+		<mapping resource="hibernate/Student.hbm.xml"/>
+		<mapping resource="hibernate/AppUser.hbm.xml"/>
+		<mapping resource="hibernate/AppEmployee.hbm.xml"/>
+		-->
+	</session-factory>
+</hibernate-configuration>

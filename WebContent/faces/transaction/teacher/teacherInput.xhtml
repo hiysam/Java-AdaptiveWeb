@@ -1,0 +1,177 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+
+	
+	<div class="card">
+		<h3>
+			<h:outputText value="#{teacherInput.modeTitle}" />
+		</h3>
+		<p:panelGrid columns="3" border="1" styleClass="ui-noborder" cellpadding="7">
+			<h:panelGroup>
+				<h:outputText value="#{msg.formTeacherNo}" />
+				<span style="color: red"> *</span>
+			</h:panelGroup>
+			<p:inputText id="teacherNoAdd" size="15"
+				rendered="#{teacherInput.MODE_TYPE eq 'ADD'}"
+				value="#{teacherInput.teacherVO.teacherNumber}" maxlength="5" />
+
+			<p:inputText id="teacherNoEdit"
+				value="#{teacherInput.teacherVO.teacherNumber}"
+				rendered="#{teacherInput.MODE_TYPE eq 'EDIT'}" readonly="true" />
+			<p:message for="teacherNoAdd" />
+
+			<h:panelGroup>
+				<h:outputText value="#{msg.formTeacherName}" />
+				<span style="color: red"> *</span>
+			</h:panelGroup>
+
+			<p:inputText id="teacherName" size="15"
+				value="#{teacherInput.teacherVO.teacherName}" maxlength="30" />
+			<p:message for="teacherName" />
+
+			<h:panelGroup>
+				<h:outputText value="#{msg.formTeacherGender}" />
+			</h:panelGroup>
+			
+			<p:selectOneRadio id="gender" unselectable="true" layout="grid" columns="1"
+				value="#{teacherInput.teacherVO.teacherGender}">
+				<f:selectItems value="#{teacherBean.genderSelectItem}" />
+			</p:selectOneRadio>
+			
+			<p:message for="gender" />
+			
+			<h:panelGroup>
+				<h:outputText value="#{msg.formTeacherBirthPlace}" />
+				<span style="color: red"> *</span>
+			</h:panelGroup>
+
+			<p:inputText id="birthPlace" rows="2" cols="30"
+				value="#{teacherInput.teacherVO.teacherBirthPlace}"  />
+			<p:message for="birthPlace" />
+			
+			<h:panelGroup>
+				<h:outputLabel for="birthDate" value="#{msg.formTeacherBirthDate}" />
+				<span style="color: red"> *</span>
+			</h:panelGroup>
+			
+       	 	<p:calendar id="birthDate" value="#{teacherInput.teacherVO.teacherBirthDate}" showOn="button" />
+			<p:message for="birthDate" />
+			
+			<h:panelGroup>
+				<h:outputText value="#{msg.formTeacherAddress}" />
+				<span style="color: red"> *</span>
+			</h:panelGroup>
+
+			<p:inputTextarea id="address" rows="2" cols="30"
+				value="#{teacherInput.teacherVO.teacherAddress}" />
+			<p:message for="address" />
+			
+			<h:panelGroup>
+				<h:outputText value="#{msg.formActive}" />
+				<span style="color: red"> *</span>
+			</h:panelGroup>
+			
+			<p:selectOneMenu id="active"
+				value="#{teacherInput.teacherVO.activeFlag}" size="5">
+				<f:selectItem itemLabel="YES" itemValue="Y" />
+				<f:selectItem itemLabel="NO" itemValue="N" />
+
+			</p:selectOneMenu>
+			<p:message for="active" />
+	
+		</p:panelGrid>
+
+			<hr></hr>
+		<h3>
+			<h:outputText value="#{msg.listTeacherClass}" />
+		</h3>
+		
+		<h:panelGrid >	
+		
+			<p:commandButton value="#{msg.common_btnAdd}" actionListener="#{teacherInput.modeAddTeacher}" update=":formTeacher"/>	
+			<br></br>
+			
+			<p:message for="validateTeacherClass" id="validateTeacherClass"/>
+			<p:dataTable id="daftarKelasPengajar" value="#{teacherInput.tcrClassVOList}" var="data"
+				rowIndexVar="index">
+				<p:column style="width:50px">
+					<f:facet name="header">
+						<h:outputText value="#{msg.common_textAction}"/>
+					</f:facet>
+					<center>
+						<p:commandButton icon="ui-icon-trash" actionListener="#{teacherInput.deleteTeacherClass(data)}" 
+						update=":formTeacher:daftarKelasPengajar" >
+						<p:confirm header="#{msg.common_textConfirm}"
+							message="#{msg.common_textConfirmDelete}" icon="ui-icon-alert" />
+						</p:commandButton>
+					</center>
+				</p:column>
+	
+				<p:column style="width:30px">
+					<f:facet name="header">
+						<h:outputText value="#{msg.common_indexNo}"/>
+					</f:facet>
+					<center>
+						<h:outputText value="#{index+1}"/>
+					</center>
+				</p:column>
+				
+				<p:column style="width:200px">
+					<f:facet name="header">
+						<h:outputText value="#{msg.formMatpel}"/>
+					</f:facet>
+					<p:selectOneMenu id="chooseCourse" value="#{data.courseId}" effect="fade" 
+						filter="true" filterMatchMode="contains" style="width:180px"
+						panelStyle="width:50px">
+						<f:selectItem itemLabel="Choose"/>
+						<f:selectItems value="#{teacherInput.courseList}"/>
+					</p:selectOneMenu>
+				
+				</p:column>
+	
+				<p:column style="width:165px">
+					<f:facet name="header">
+						<h:outputText value="#{msg.formTeacherDayOfWeek}"/>
+					</f:facet>
+					<center>
+						<p:inputText value="#{data.dayOfWeek}" style="width:165px; text-align:center" maxLength="1" >
+							<p:keyFilter regEx="/[\d\-]/" />
+						</p:inputText>
+					</center>
+				</p:column>
+				
+				<p:column style="width:170px">
+					<f:facet name="header">
+						<h:outputText value="#{msg.formTeacherTimeStart}"/>
+					</f:facet>
+					<center>
+						<p:inputText value="#{data.timeStart}" style="width:170px; text-align:center"/>
+					</center>
+				</p:column>
+				
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="#{msg.formTeacherTimeEnd}"/>
+					</f:facet>
+					<center>
+						<p:inputText value="#{data.timeEnd}" style="text-align:center"/>
+					</center>
+				</p:column>
+			</p:dataTable>	
+			
+			<br></br>
+			<p:row>
+			<p:commandButton actionListener="#{teacherBean.modeSearch}"
+				value="#{msg.common_btnBack}" update=":formTeacher" />
+			<p:spacer width="5"/>
+			<p:commandButton actionListener="#{teacherBean.modeSave}"
+				value="#{msg.common_btnSave}" update=":formTeacher" />
+			</p:row>
+			
+		</h:panelGrid>
+	</div>
+</ui:composition>

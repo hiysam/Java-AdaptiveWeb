@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.adaptive.module.master.course.model">
+	<class name="Course" table="tbl_course">
+		<id name="courseId" column="COURSE_ID" type="long">
+			<!-- <generator class="native">
+				<param name="sequence">course_seq</param>
+			 </generator>-->
+			 <generator class="increment"></generator>
+		</id>
+		
+		<property name="courseCode" column="COURSE_CODE" type="string"/>
+		<property name="courseName" column="COURSE_NAME" type="string"/>
+		<property name="courseDesc" column="COURSE_DESC" type="string"/>
+		
+		<property name="activeFlag" column="ACTIVE_FLAG" type="string"/>
+		<property name="createBy" column="CREATE_BY" type="string"/>
+		<property name="createOn" column="CREATE_ON" type="timestamp"/>
+		<property name="updateBy" column="UPDATE_BY" type="string"/>
+		<property name="updateOn" column="UPDATE_ON" type="timestamp"/>
+		
+	</class>
+</hibernate-mapping>

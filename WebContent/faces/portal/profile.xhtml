@@ -1,0 +1,60 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="../templates/template.xhtml">
+                
+    <ui:define name="title">HC System - Profile</ui:define>
+
+    <ui:define name="viewname">Profile</ui:define>
+
+    <ui:define name="content">
+	    <p:panel header="PROFILE">
+	    	<div class="card card-w-title">
+	        	<center>
+	        		<p:graphicImage name="images/avatar1.png" library="california-layout" styleClass="profile-photo" />	
+                    <span class="profile-name"><p:outputLabel value="HARI PUDJO SANTOSO (09011171)"/></span>
+                    <span class="profile-role"><p:outputLabel value="BUSINESS &#38; HUMAN CAPITAL DIRECTOR."/></span>
+	        	</center>
+            </div>
+	    	<p:panelGrid columns="2" columnClasses="ui-grid-col-4,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank form-group" style="border:0px none; background-color:transparent; padding-left:100px;">
+                <p:outputLabel style="font-weight:bold" value="Grade / Level"/>
+                <p:outputLabel value="5. Senior Clerk"/>
+				
+				<p:outputLabel style="font-weight:bold" value="Direct Manager"/>
+                <p:outputLabel value="OKNIANTO MIONO (12029597)"/>
+                 
+                <p:outputLabel style="font-weight:bold" value="Join Date"/>
+                <p:outputLabel value="31 Dec 2013"/> 
+                
+                <p:outputLabel style="font-weight:bold" value="No. KTP"/>
+                <p:outputLabel value="3175070405660008"/>
+                
+                <p:outputLabel style="font-weight:bold" value="Tempat &#38; Tanggal Lahir"/>
+                <p:outputLabel value="JAKARTA, 04 May 1966"/>
+                
+                <p:outputLabel style="font-weight:bold" value="Jenis Kelamin"/>
+                <p:outputLabel value="M"/>
+                
+                <p:outputLabel style="font-weight:bold" value="Status"/>
+                <p:outputLabel value="M"/>
+                
+                <p:outputLabel style="font-weight:bold" value="Alamat"/>
+                <p:outputLabel value="PONDOK KELAPA INDAH BLOK B.3 NO.4 RT.010 RW.007 PONDOK KELAPA, DUREN SAWIT"/>	
+            
+            	<p:outputLabel style="font-weight:bold" value="1. ARFIANTI PERMANA SARI Istri"/>
+                <p:outputLabel value="-"/>
+                
+                <p:outputLabel style="font-weight:bold" value="2. MUHAMMAD HAFIZH HANANDITO Anak"/>
+                <p:outputLabel value="-"/>
+                
+                <p:outputLabel style="font-weight:bold" value="3. PRASTITA ANDHIYANI SANTOSO Anak"/>
+                <p:outputLabel value="-"/>	
+            
+            </p:panelGrid>
+
+	    </p:panel>    
+    </ui:define>
+
+</ui:composition>

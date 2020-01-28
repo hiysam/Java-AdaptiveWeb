@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.adaptive.module.transaction.teacherClass.model">
+	<class name="TeacherClass" table="tbl_teacher_class">
+		<id name="Id" column="TEACHER_CLASS_ID" type="long">
+			 <generator class="increment"></generator>
+		</id>
+		
+		<many-to-one name="tcr" column="TEACHER_ID" insert="true" update="true"
+			class="com.adaptive.module.transaction.teacher.model.Teacher" fetch="join">
+		</many-to-one>
+		
+		<many-to-one name="crs" column="COURSE_ID" insert="true" update="true"
+			class="com.adaptive.module.master.course.model.Course" fetch="join">
+		</many-to-one>
+		
+		<property name="dayOfWeek" column="DAY_OF_WEEK" type="integer" />
+		<property name="timeStart" column="TIME_START" type="string" />
+		<property name="timeEnd" column="TIME_END" type="string" />
+		
+		<property name="activeFlag" column="ACTIVE_FLAG" type="string"/>
+		<property name="createBy" column="CREAT_BY" type="string"/>
+		<property name="createOn" column="CREAT_ON" type="timestamp"/>
+		<property name="updateBy" column="UPDATE_BY" type="string"/>
+		<property name="updateOn" column="UPDATE_ON" type="timestamp"/>
+		
+	</class>
+</hibernate-mapping>

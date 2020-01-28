@@ -1,0 +1,55 @@
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:pc="http://primefaces.org/california">
+
+    <div class="layout-sidebar layout-sidebar-dark">
+        <div id="nano-container" class="nano">
+            <div class="nano-content sidebar-scroll-content">
+                <ui:fragment>
+                    <div class="user-profile">
+                        <a id="sidebar-profile-button" href="#">
+                         	<p:graphicImage name="images/avatar-brenda.png" library="california-layout"/>
+                             <span class="sidebar-profile-name">Hiysam Ash Shiddigie</span>
+                            <span class="sidebar-profile-role">Hamba Allah</span>
+                        </a>
+                        <ul id="sidebar-usermenu" class="usermenu">
+                            <li> 
+                                <a href="profile.jsf">
+                                    <i class="fa fa-fw fa-user"></i>
+                                    <span class="topbar-item-name">Profile</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </ui:fragment>
+
+                <h:form id="menuform">
+                    <pc:menu widgetVar="me">
+                        <p:menuitem id="om_dashboard" value="Dashboard" icon="fa fa-fw fa-home"  url="/faces/portal/dashboard.jsf"/>
+                    		<p:submenu label="Basic" icon="fa fa-fw fa-book">
+	                        	<p:menuitem id="om_helloworld" value="Hello World" url="/faces/master/basic/helloworld.jsf"/>
+	                        	<p:menuitem id="om_penjumlahan" value="Penjumlahan" url="/faces/master/basic/penjumlahan.jsf"/>
+	                        	<p:menuitem id="om_pengurangan" value="Pengurangan" url="/faces/master/basic/pengurangan.jsf"/>
+	                        	<p:menuitem id="om_segitiga" value="Luas Segitiga" url="/faces/master/basic/segitiga.jsf"/>
+	                        	<p:menuitem id="om_balok" value="Volume Balok" url="/faces/master/basic/volumeBalokMain.jsf"/>
+	                        	<p:menuitem id="om_kubus" value="Volume Kubus" url="/faces/master/basic/volumeKubus.jsf"/>
+	                        </p:submenu>
+	                        <p:submenu label="Master" icon="pi pi-folder-open">
+	                        	<p:menuitem id="om_course" value="Course" url="/faces/master/course/courseMain.jsf"/>
+	                        	<p:menuitem id="om_semester" value="Semester" url="/faces/master/semester/semesterMain.jsf"/>
+	                        </p:submenu>
+	                        <p:submenu label="Transaction" icon="pi pi-folder-open">
+	                        	<p:menuitem id="om_teacher" value="Teacher" url="/faces/transaction/teacher/teacherMain.jsf"/>
+	                        </p:submenu>
+                    </pc:menu>
+                </h:form>
+            </div>
+        </div>
+
+    </div>
+
+</ui:composition>

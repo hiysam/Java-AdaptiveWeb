@@ -1,0 +1,67 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" 
+				xmlns:h="http://java.sun.com/jsf/html" 
+				xmlns:f="http://java.sun.com/jsf/core"
+   				xmlns:ui="http://java.sun.com/jsf/facelets"
+   				xmlns:p="http://primefaces.org/ui"
+   				template="../../templates/template.xhtml">
+   				
+<ui:define name="title">
+	<h:outputText value = "#{msg.webtitle}" /> - 
+	<h:outputText value = "Pengurangan" />
+</ui:define>
+
+<ui:define name="viewname">Master / Basic / Pengurangan</ui:define>
+
+<ui:define name="content">
+	<h:form id="formPengurangan">
+		<div class="card">
+			<p:panelGrid styleClass="ui-noborder">
+				<p:row>
+					<p:column>
+						<h:outputText value="Bilangan 1 : "/>
+					</p:column>
+					<p:column>
+						<p:spinner id="bilangan1" size="7" maxLenght="5" value="#{penguranganInputBean.strBil1}">
+						<p:keyFilter regEx="/[\d\-]/" />
+						</p:spinner>
+					</p:column>
+					<p:column>
+						<p:message for="bilangan1"/>
+					</p:column>
+				</p:row>
+				
+				<p:row>
+					<p:column>
+						<h:outputText value="Bilangan 2 : "/>
+					</p:column>
+					<p:column>
+						<p:spinner id="bilangan2" size="7" maxLenght="5" value="#{penguranganInputBean.strBil2}">
+						<p:keyFilter regEx="/[\d\-]/" />
+						</p:spinner>
+					</p:column>
+					<p:column>
+						<p:message for="bilangan2"/>
+					</p:column>
+				</p:row>
+				
+				<p:row>
+					<p:column>
+						<h:outputText value="Hasil : "/>
+					</p:column>
+					<p:column>
+						<p:inputText id="hasil" size="7" readonly="true" value="#{penguranganInputBean.hasil}"/>
+					</p:column>
+				</p:row>
+				
+				<p:row>
+					<p:column colspan="3">
+						<p:commandButton style="margin-left:110px" id="buttonHitung" value="hitung"
+						actionListener="#{penguranganInputBean.calculate}" update=":formPengurangan" />
+					</p:column>
+				</p:row>
+			</p:panelGrid>
+		</div>
+	</h:form>
+</ui:define>
+
+</ui:composition>
